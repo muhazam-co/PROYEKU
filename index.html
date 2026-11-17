@@ -100,7 +100,6 @@
                 <circle cx="610" cy="220" r="6" fill="#FDB813"/>
             </svg>
 
-            <!-- Ruang Atas Kosong (Logo & Tulisan Belvinda V2 Dihapus Sesuai Permintaan) -->
             <div class="relative z-10 h-4"></div>
 
             <!-- Copywriting Utama -->
@@ -112,7 +111,7 @@
                     Kendalikan kontrak, proyek, dan tim lapangan dari satu panel.
                 </h1>
                 <p class="text-blue-100 text-base lg:text-lg leading-relaxed">
-                    Kontrak rinci, administrasi PK hingga pembayaran, Gantt otomatis, persetujuan laporan berjenjang, dan chat tim — terhubung real-time.
+                    Kontrak rinci, administrasi PK hingga pembayaran, Gantt otomatis, persetujuan laporan berjenjang, dan chat tim — terhubung real-time dengan Google Sheets.
                 </p>
             </div>
 
@@ -123,7 +122,7 @@
             </div>
         </div>
 
-        <!-- Panel Kanan: Form Masuk & Daftar Perusahaan (Tema Putih Bersih) -->
+        <!-- Panel Kanan: Form Masuk & Daftar Perusahaan -->
         <div class="lg:w-1/2 flex items-center justify-center p-6 sm:p-12 bg-slate-50">
             <div class="w-full max-w-md bg-white rounded-2xl shadow-xl shadow-slate-200/70 border border-slate-200/80 p-7 sm:p-8">
                 <!-- Switcher Tab Masuk / Daftar Perusahaan -->
@@ -165,14 +164,13 @@
                         <i class="fa-solid fa-arrow-right text-xs"></i>
                     </button>
 
-                    <!-- Informasi Keamanan Login -->
                     <div class="mt-5 p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-2.5 text-[11px] text-slate-500">
                         <i class="fa-solid fa-shield-halved text-pln-blue text-sm shrink-0"></i>
                         <span>Akses terbatas untuk personel terdaftar. Hubungi <b>Super Admin</b> perusahaan jika lupa kredensial akun Anda.</span>
                     </div>
                 </form>
 
-                <!-- FORM DAFTAR PERUSAHAAN (TENANT ONBOARDING) -->
+                <!-- FORM DAFTAR PERUSAHAAN -->
                 <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
                     <div>
                         <h2 class="text-2xl font-bold text-slate-900">Daftarkan perusahaan baru</h2>
@@ -219,10 +217,9 @@
         <!-- Mobile Sidebar Backdrop -->
         <div id="sidebarBackdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-slate-900/50 z-30 hidden lg:hidden"></div>
 
-        <!-- PERSISTENT LEFT SIDEBAR (Tema Putih & Biru PLN) -->
+        <!-- PERSISTENT LEFT SIDEBAR -->
         <aside id="sidebar" class="fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-white border-r border-slate-200 flex flex-col justify-between transition-transform -translate-x-full lg:translate-x-0">
             <div>
-                <!-- Header Logo Sidebar (Dinamis Mengikuti Profil Perusahaan) -->
                 <div class="h-16 px-4 flex items-center justify-between border-b border-slate-100 bg-gradient-to-r from-pln-blue to-pln-dark text-white">
                     <div class="flex items-center gap-2.5 cursor-pointer min-w-0" onclick="navigateTo('profil')" title="Klik untuk ubah Profil & Logo Perusahaan">
                         <div id="sidebarBrandLogoBox" class="w-9 h-9 rounded-lg bg-pln-yellow text-pln-dark flex items-center justify-center font-extrabold text-base shadow shrink-0 overflow-hidden">
@@ -335,7 +332,7 @@
                             <span id="topbarCompanyBadge">PT Belvinda Abadi Galaksindo</span>
                         </button>
                         <span id="topbarCompanyTagline" class="hidden md:inline">&bull; Kontraktor Ketenagalistrikan</span>
-                        <span id="autoSaveBadge" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
+                        <span id="autoSaveBadge" onclick="syncFromGoogleSheetsManual()" title="Klik untuk muat ulang dari Google Sheets" class="cursor-pointer inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
                             <i class="fa-solid fa-cloud-arrow-up text-[9px]"></i> Tersimpan Otomatis
                         </span>
                     </div>
@@ -348,14 +345,13 @@
                             class="pl-8 pr-3 py-1 rounded-lg bg-slate-100 border border-slate-200 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-pln-blue w-48 transition">
                     </div>
 
-                    <!-- TOMBOL LOGO AKTIVITAS (LOG SIAPA SAJA YANG MENGEDIT/MERUBAH) -->
+                    <!-- TOMBOL LOGO AKTIVITAS -->
                     <div class="relative">
                         <button onclick="toggleHeaderDropdown('activityLogDropdown')" title="Log Aktivitas Perubahan Data"
                             class="relative w-9 h-9 rounded-xl bg-slate-100 hover:bg-pln-light text-slate-600 hover:text-pln-blue border border-slate-200 flex items-center justify-center transition">
                             <i class="fa-solid fa-clock-rotate-left text-sm"></i>
                             <span id="activityBadgeCount" class="absolute -top-1 -right-1 px-1.5 py-0.2 min-w-[18px] h-[18px] rounded-full bg-pln-blue text-white text-[9.5px] font-extrabold flex items-center justify-center shadow">3</span>
                         </button>
-                        <!-- Dropdown Log Aktivitas -->
                         <div id="activityLogDropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden fade-in">
                             <div class="px-4 py-3 bg-gradient-to-r from-pln-dark to-pln-blue text-white flex items-center justify-between">
                                 <div class="flex items-center gap-2">
@@ -364,9 +360,7 @@
                                 </div>
                                 <button onclick="clearActivityLogs()" class="text-[10px] text-blue-100 hover:text-white underline">Bersihkan</button>
                             </div>
-                            <div id="activityLogList" class="divide-y divide-slate-100 max-h-80 overflow-y-auto text-xs">
-                                <!-- Diisi via JS -->
-                            </div>
+                            <div id="activityLogList" class="divide-y divide-slate-100 max-h-80 overflow-y-auto text-xs"></div>
                         </div>
                     </div>
 
@@ -377,7 +371,6 @@
                             <i class="fa-solid fa-bell text-sm"></i>
                             <span id="notifApprovalBadgeCount" class="absolute -top-1 -right-1 px-1.5 py-0.2 min-w-[18px] h-[18px] rounded-full bg-pln-yellow text-pln-dark text-[9.5px] font-extrabold flex items-center justify-center shadow">0</span>
                         </button>
-                        <!-- Dropdown Notifikasi Persetujuan Work Flow -->
                         <div id="wfNotifDropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden fade-in">
                             <div class="px-4 py-3 bg-gradient-to-r from-pln-blue to-pln-cyan text-white flex items-center justify-between">
                                 <div class="flex items-center gap-2">
@@ -386,13 +379,11 @@
                                 </div>
                                 <span id="notifHeaderSubCount" class="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded-full">0 Antrean</span>
                             </div>
-                            <div id="wfNotifList" class="divide-y divide-slate-100 max-h-80 overflow-y-auto text-xs">
-                                <!-- Diisi via JS -->
-                            </div>
+                            <div id="wfNotifList" class="divide-y divide-slate-100 max-h-80 overflow-y-auto text-xs"></div>
                         </div>
                     </div>
 
-                    <!-- BRAND PERUSAHAAN DI POJOK KANAN ATAS (KLIK UNTUK KE MENU PROFIL PERUSAHAAN) -->
+                    <!-- BRAND PERUSAHAAN DI POJOK KANAN ATAS -->
                     <button type="button" onclick="navigateTo('profil')" title="Klik untuk mengubah Logo & Nama Perusahaan"
                         class="flex items-center gap-2.5 pl-2.5 pr-3 py-1.5 rounded-xl bg-slate-50 hover:bg-pln-light border border-slate-200 hover:border-pln-blue/40 transition group">
                         <div id="headerRightLogoBox" class="w-8 h-8 rounded-lg bg-pln-yellow text-pln-dark flex items-center justify-center font-extrabold text-sm shadow-2xs overflow-hidden shrink-0">
@@ -412,16 +403,13 @@
             </header>
 
             <!-- Kontainer Modul Dinamis -->
-            <main id="mainContent" class="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto fade-in">
-                <!-- Diisi secara dinamis oleh JavaScript -->
-            </main>
+            <main id="mainContent" class="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto fade-in"></main>
         </div>
     </div>
 
     <!-- ==================== 3. MODAL DETAIL WORKFLOW, APPROVAL & MULTI-UPLOAD ==================== -->
     <div id="workflowModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden fade-in">
-            <!-- Header Modal -->
             <div class="px-6 py-4 bg-gradient-to-r from-pln-dark to-pln-blue text-white flex items-center justify-between">
                 <div>
                     <div class="flex items-center gap-2">
@@ -436,29 +424,18 @@
                 </button>
             </div>
 
-            <!-- Navigasi Cepat Antar-Tahap Workflow di Dalam Modal -->
-            <div id="wfStepQuickNav" class="px-6 py-2 bg-pln-light/60 border-b border-slate-200 flex items-center gap-1.5 overflow-x-auto text-[10px] font-bold">
-                <!-- Rendered via JS -->
-            </div>
+            <div id="wfStepQuickNav" class="px-6 py-2 bg-pln-light/60 border-b border-slate-200 flex items-center gap-1.5 overflow-x-auto text-[10px] font-bold"></div>
 
-            <!-- Body Modal -->
             <div class="p-6 overflow-y-auto space-y-6 flex-1">
-                <!-- Visualisasi Hierarki Approval Berjenjang -->
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                     <div class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3 flex items-center justify-between">
                         <span>Alur Persetujuan Hierarki Kelengkapan Berkas</span>
                         <span id="wfHierarchyIndicator" class="text-pln-blue font-bold">Tahap 1/3</span>
                     </div>
-                    <div class="grid grid-cols-3 gap-2 text-center" id="wfHierarchySteps">
-                        <!-- Rendered via JS -->
-                    </div>
-                    <!-- Tombol Aksi Centang & Approve ke Hierarki Atas -->
-                    <div id="wfApprovalActions" class="mt-4 pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
-                        <!-- Rendered via JS berdasarkan status & role user -->
-                    </div>
+                    <div class="grid grid-cols-3 gap-2 text-center" id="wfHierarchySteps"></div>
+                    <div id="wfApprovalActions" class="mt-4 pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2"></div>
                 </div>
 
-                <!-- Section Upload Banyak Foto & Dokumen (Multi-File) -->
                 <div>
                     <div class="flex items-center justify-between mb-2">
                         <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">
@@ -467,24 +444,19 @@
                         <span id="wfAttachmentCount" class="text-xs font-semibold text-slate-500">0 Berkas</span>
                     </div>
 
-                    <!-- Dropzone Multi Upload -->
                     <label class="flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-pln-blue/40 hover:border-pln-blue bg-pln-light/40 hover:bg-pln-light/70 rounded-xl cursor-pointer transition group">
                         <div class="flex items-center gap-3 text-pln-blue">
                             <i class="fa-solid fa-cloud-arrow-up text-2xl group-hover:scale-110 transition"></i>
                             <div class="text-left">
                                 <div class="text-sm font-bold">Klik untuk unggah foto atau dokumen (bisa pilih lebih dari 1)</div>
-                                <div class="text-[11px] text-slate-500">Mendukung JPG, PNG, PDF, XLSX, DOCX &bull; Otomatis tersimpan & dapat diunduh</div>
+                                <div class="text-[11px] text-slate-500">Mendukung JPG, PNG, PDF, XLSX, DOCX &bull; Otomatis tersimpan ke Google Drive & Sheets</div>
                             </div>
                         </div>
                         <input type="file" id="wfMultiFileInput" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" onchange="handleWorkflowFileUpload(event)" class="hidden">
                     </label>
 
-                    <!-- Daftar Lampiran & Preview Gambar + Tombol Download -->
-                    <div id="wfAttachmentList" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <!-- Rendered via JS -->
-                    </div>
+                    <div id="wfAttachmentList" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
 
-                    <!-- Section Catatan Karyawan / Lapangan di Bawah Upload File -->
                     <div class="mt-5 pt-5 border-t border-slate-200">
                         <div class="flex items-center justify-between mb-2">
                             <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">
@@ -493,7 +465,6 @@
                             <span id="wfNoteCounter" class="text-[11px] font-semibold text-slate-500">0 Catatan</span>
                         </div>
 
-                        <!-- Form Input Tambah Catatan Karyawan -->
                         <form onsubmit="handleAddWorkflowNote(event)" class="flex flex-col sm:flex-row gap-2 mb-3">
                             <input type="text" id="wfNewNoteInput" required placeholder="Tulis catatan terkait file/tahapan ini (misal: Kurang TTD pengawas, material sudah di gudang)..."
                                 class="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-pln-blue">
@@ -502,17 +473,13 @@
                             </button>
                         </form>
 
-                        <!-- Daftar Riwayat Catatan yang Ditambahkan Karyawan -->
-                        <div id="wfNotesList" class="space-y-2 max-h-44 overflow-y-auto pr-1">
-                            <!-- Rendered via JS -->
-                        </div>
+                        <div id="wfNotesList" class="space-y-2 max-h-44 overflow-y-auto pr-1"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Footer Modal -->
             <div class="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
-                <span class="text-[11px] text-slate-500"><i class="fa-solid fa-circle-info text-pln-blue mr-1"></i>Perubahan status langsung tersinkronisasi ke tabel Project Administration.</span>
+                <span class="text-[11px] text-slate-500"><i class="fa-solid fa-circle-info text-pln-blue mr-1"></i>Perubahan status langsung tersinkronisasi ke Google Sheets & tabel Project Administration.</span>
                 <button onclick="closeWorkflowModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition">
                     Selesai & Tutup
                 </button>
@@ -520,7 +487,7 @@
         </div>
     </div>
 
-    <!-- ==================== 4. MODAL GENERIC (TAMBAH/EDIT PROJECT / KONTRAK / LAPORAN / ASET / USER) ==================== -->
+    <!-- ==================== 4. MODAL GENERIC ==================== -->
     <div id="genericModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden fade-in">
             <div class="px-6 py-4 bg-pln-blue text-white flex items-center justify-between">
@@ -531,8 +498,11 @@
         </div>
     </div>
 
-    <!-- ==================== JAVASCRIPT LOGIKA & STATE APLIKASI ==================== -->
+    <!-- ==================== JAVASCRIPT LOGIKA & INTEGRASI GOOGLE APPS SCRIPT ==================== -->
     <script>
+        const IS_GAS_ENV = (typeof google !== 'undefined' && google.script && google.script.run);
+        let gasSaveDebounceTimer = null;
+
         // ==================== DATA MASTER & STATE ====================
         const WORKFLOW_STEPS = [
             { key: 'material', label: 'MATERIAL', color: 'amber' },
@@ -563,7 +533,6 @@
             { id: 'c3', noKontrak: '0012.PJ/DAN.01.01/UP3-BDG/2025', pt: 'PT PLN (Persero)', direksi: 'UP3 Bandung', pekerjaan: 'Pemeliharaan Jaringan SUTM 20kV Bandung Timur', tglKontrak: '15/01/2025', tglAkhir: '31/12/2025', nilaiKontrak: 4850000000 }
         ];
 
-        // ==================== SISTEM AUTO-SAVE, BACKUP & RESTORE STATE ====================
         const STORAGE_KEY = 'BELVINDA_ERP_STATE_V2';
         let OWNER_REGISTRATION_CODE = 'BELVINDA-OWNER-2026';
         let COMPANY_PROFILE = {
@@ -578,35 +547,90 @@
             director: 'Budi Santoso'
         };
 
+        function buildCurrentStatePayload() {
+            return {
+                company: currentCompany,
+                companyProfile: COMPANY_PROFILE,
+                ownerRegistrationCode: OWNER_REGISTRATION_CODE,
+                workflowSteps: WORKFLOW_STEPS,
+                users: USERS_DB,
+                contracts: CONTRACTS_DB,
+                projects: PROJECTS_DB,
+                ganttTasks: GANTT_TASKS,
+                reports: REPORTS_DB,
+                chatChannels: CHAT_CHANNELS,
+                chatMessages: CHAT_MESSAGES,
+                assets: ASSETS_DB,
+                databasePk: DATABASE_PK,
+                activityLogs: ACTIVITY_LOGS,
+                savedAt: new Date().toISOString()
+            };
+        }
+
+        function applyParsedStateObject(parsed) {
+            if (!parsed || typeof parsed !== 'object') return false;
+            if (parsed.company) currentCompany = parsed.company;
+            if (parsed.companyProfile && typeof parsed.companyProfile === 'object') {
+                COMPANY_PROFILE = { ...COMPANY_PROFILE, ...parsed.companyProfile };
+                if (COMPANY_PROFILE.name) currentCompany = COMPANY_PROFILE.name;
+            } else if (parsed.company) {
+                COMPANY_PROFILE.name = parsed.company;
+            }
+            if (parsed.ownerRegistrationCode) OWNER_REGISTRATION_CODE = parsed.ownerRegistrationCode;
+            if (Array.isArray(parsed.workflowSteps) && parsed.workflowSteps.length > 0) {
+                WORKFLOW_STEPS.length = 0;
+                parsed.workflowSteps.forEach(s => WORKFLOW_STEPS.push(s));
+            }
+            if (Array.isArray(parsed.users) && parsed.users.length > 0) USERS_DB = parsed.users;
+            if (Array.isArray(parsed.contracts)) CONTRACTS_DB = parsed.contracts;
+            if (Array.isArray(parsed.projects)) PROJECTS_DB = parsed.projects;
+            if (Array.isArray(parsed.ganttTasks)) GANTT_TASKS = parsed.ganttTasks;
+            if (Array.isArray(parsed.reports)) REPORTS_DB = parsed.reports;
+            if (Array.isArray(parsed.chatChannels)) CHAT_CHANNELS = parsed.chatChannels;
+            if (parsed.chatMessages && typeof parsed.chatMessages === 'object') CHAT_MESSAGES = parsed.chatMessages;
+            if (Array.isArray(parsed.assets)) ASSETS_DB = parsed.assets;
+            if (Array.isArray(parsed.databasePk)) DATABASE_PK = parsed.databasePk;
+            if (Array.isArray(parsed.activityLogs)) ACTIVITY_LOGS = parsed.activityLogs;
+            return true;
+        }
+
         function saveAppState() {
+            const payload = buildCurrentStatePayload();
+            const jsonStr = JSON.stringify(payload);
             try {
-                const payload = {
-                    company: currentCompany,
-                    companyProfile: COMPANY_PROFILE,
-                    ownerRegistrationCode: OWNER_REGISTRATION_CODE,
-                    workflowSteps: WORKFLOW_STEPS,
-                    users: USERS_DB,
-                    contracts: CONTRACTS_DB,
-                    projects: PROJECTS_DB,
-                    ganttTasks: GANTT_TASKS,
-                    reports: REPORTS_DB,
-                    chatChannels: CHAT_CHANNELS,
-                    chatMessages: CHAT_MESSAGES,
-                    assets: ASSETS_DB,
-                    databasePk: DATABASE_PK,
-                    activityLogs: ACTIVITY_LOGS,
-                    savedAt: new Date().toISOString()
-                };
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-                const badge = document.getElementById('autoSaveBadge');
-                if (badge) {
-                    const now = new Date();
-                    const hhmm = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-                    badge.innerHTML = `<i class="fa-solid fa-check-circle text-[9px]"></i> Tersimpan (${hhmm})`;
-                }
+                localStorage.setItem(STORAGE_KEY, jsonStr);
             } catch (err) {
                 console.warn('Kapasitas penyimpanan lokal penuh:', err);
-                showToast('Memori browser penuh. Gunakan Backup JSON untuk mengamankan data.', 'warning');
+            }
+
+            const badge = document.getElementById('autoSaveBadge');
+            if (IS_GAS_ENV) {
+                if (badge) {
+                    badge.innerHTML = `<i class="fa-solid fa-rotate fa-spin text-[9px]"></i> Menyimpan ke Sheets...`;
+                }
+                if (gasSaveDebounceTimer) clearTimeout(gasSaveDebounceTimer);
+                gasSaveDebounceTimer = setTimeout(() => {
+                    const actor = currentUser ? currentUser.name : 'System';
+                    google.script.run
+                        .withSuccessHandler(() => {
+                            const b = document.getElementById('autoSaveBadge');
+                            if (b) {
+                                const now = new Date();
+                                const hhmm = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+                                b.innerHTML = `<i class="fa-solid fa-cloud-check text-[9px]"></i> Google Sheets (${hhmm})`;
+                            }
+                        })
+                        .withFailureHandler((err) => {
+                            console.error('GAS Save Error:', err);
+                            const b = document.getElementById('autoSaveBadge');
+                            if (b) b.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-[9px]"></i> Lokal Tersimpan`;
+                        })
+                        .saveAppStateToServer(jsonStr, actor);
+                }, 400);
+            } else if (badge) {
+                const now = new Date();
+                const hhmm = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+                badge.innerHTML = `<i class="fa-solid fa-check-circle text-[9px]"></i> Tersimpan (${hhmm})`;
             }
         }
 
@@ -615,38 +639,44 @@
                 const raw = localStorage.getItem(STORAGE_KEY);
                 if (!raw) return false;
                 const parsed = JSON.parse(raw);
-                if (parsed.company) currentCompany = parsed.company;
-                if (parsed.companyProfile && typeof parsed.companyProfile === 'object') {
-                    COMPANY_PROFILE = { ...COMPANY_PROFILE, ...parsed.companyProfile };
-                    if (COMPANY_PROFILE.name) currentCompany = COMPANY_PROFILE.name;
-                } else if (parsed.company) {
-                    COMPANY_PROFILE.name = parsed.company;
-                }
-                if (parsed.ownerRegistrationCode) OWNER_REGISTRATION_CODE = parsed.ownerRegistrationCode;
-                if (Array.isArray(parsed.workflowSteps) && parsed.workflowSteps.length > 0) {
-                    WORKFLOW_STEPS.length = 0;
-                    parsed.workflowSteps.forEach(s => WORKFLOW_STEPS.push(s));
-                }
-                if (Array.isArray(parsed.users) && parsed.users.length > 0) USERS_DB = parsed.users;
-                if (Array.isArray(parsed.contracts)) CONTRACTS_DB = parsed.contracts;
-                if (Array.isArray(parsed.projects)) PROJECTS_DB = parsed.projects;
-                if (Array.isArray(parsed.ganttTasks)) GANTT_TASKS = parsed.ganttTasks;
-                if (Array.isArray(parsed.reports)) REPORTS_DB = parsed.reports;
-                if (Array.isArray(parsed.chatChannels)) CHAT_CHANNELS = parsed.chatChannels;
-                if (parsed.chatMessages && typeof parsed.chatMessages === 'object') CHAT_MESSAGES = parsed.chatMessages;
-                if (Array.isArray(parsed.assets)) ASSETS_DB = parsed.assets;
-                if (Array.isArray(parsed.databasePk)) DATABASE_PK = parsed.databasePk;
-                if (Array.isArray(parsed.activityLogs)) ACTIVITY_LOGS = parsed.activityLogs;
-                return true;
+                return applyParsedStateObject(parsed);
             } catch (err) {
                 console.warn('Gagal memuat state tersimpan:', err);
                 return false;
             }
         }
 
+        function syncFromGoogleSheetsManual() {
+            if (!IS_GAS_ENV) {
+                showToast('Berjalan di mode lokal (LocalStorage). Upload ke Google Apps Script untuk sinkronisasi Sheets.', 'info');
+                return;
+            }
+            const badge = document.getElementById('autoSaveBadge');
+            if (badge) badge.innerHTML = `<i class="fa-solid fa-rotate fa-spin text-[9px]"></i> Memuat Sheets...`;
+            google.script.run
+                .withSuccessHandler((rawJson) => {
+                    if (rawJson) {
+                        const parsed = typeof rawJson === 'string' ? JSON.parse(rawJson) : rawJson;
+                        applyParsedStateObject(parsed);
+                        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed)); } catch (e) {}
+                        syncAllProjectsWithDatabasePK();
+                        syncUserUI();
+                        updateNavBadges();
+                        renderCurrentModule();
+                        if (badge) badge.innerHTML = `<i class="fa-solid fa-cloud-arrow-up text-[9px]"></i> Tersinkron Sheets`;
+                        showToast('Data terbaru berhasil dimuat dari Google Sheets!', 'success');
+                    }
+                })
+                .withFailureHandler((err) => {
+                    console.error('Gagal memuat dari Google Sheets:', err);
+                    showToast('Gagal memuat dari Google Sheets: ' + err.message, 'error');
+                })
+                .getAppStateFromServer();
+        }
+
         function exportFullBackupJSON() {
             saveAppState();
-            const raw = localStorage.getItem(STORAGE_KEY) || '{}';
+            const raw = JSON.stringify(buildCurrentStatePayload(), null, 2);
             const blob = new Blob([raw], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -672,12 +702,12 @@
                         showToast('Format file backup JSON tidak valid.', 'error');
                         return;
                     }
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
-                    loadAppState();
+                    applyParsedStateObject(parsed);
                     syncAllProjectsWithDatabasePK();
+                    saveAppState();
                     renderHeaderActivityAndNotif();
                     renderCurrentModule();
-                    showToast('Data berhasil dipulihkan (Restore) dari file backup!', 'success');
+                    showToast('Data berhasil dipulihkan (Restore) & disinkronkan ke Google Sheets!', 'success');
                 } catch (err) {
                     showToast('Gagal membaca file backup JSON.', 'error');
                 }
@@ -686,7 +716,7 @@
             event.target.value = '';
         }
 
-        // ==================== CUSTOM MODAL KONFIRMASI HAPUS (PENGGANTI CONFIRM) ====================
+        // ==================== CUSTOM MODAL KONFIRMASI HAPUS ====================
         let pendingConfirmCallback = null;
 
         function openConfirmDeleteModal(title, message, onConfirmFn) {
@@ -730,7 +760,7 @@
             return currentUser && ['SUPER ADMIN', 'PROJECT MANAGER', 'SUPERVISOR'].includes(currentUser.role);
         }
 
-        // ==================== KOMPRESI GAMBAR OTOMATIS SEBELUM DISIMPAN ====================
+        // ==================== KOMPRESI GAMBAR OTOMATIS ====================
         function compressImageFile(file, maxWidth = 1280, quality = 0.78) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
@@ -762,7 +792,6 @@
             });
         }
 
-        // Fungsi pembantu membuat SVG data URI mini untuk contoh gambar lampiran bawaan
         function makeSampleImageSVG(label, bgHex) {
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260" viewBox="0 0 400 260">
                 <rect width="400" height="260" fill="${bgHex}"/>
@@ -778,7 +807,7 @@
             return 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
         }
 
-        // Data Proyek (Single Source of Truth untuk Modul Project & Project Administration)
+        // Data Proyek (Single Source of Truth)
         let PROJECTS_DB = [
             {
                 id: 'p1', contractNo: '0012.PJ/DAN.01.01/UP3-BDG/2025', pt: 'PT PLN (Persero)', direksi: 'UP3 Bandung', pekerja: 'Dedi Kurniawan',
@@ -922,7 +951,6 @@
             }
         ];
 
-        // State Gantt Chart
         let GANTT_TASKS = [
             { id: 'g1', title: 'Survey & Pengukuran', startDay: 5, duration: 4, progress: 100 },
             { id: 'g2', title: 'Pengadaan Material', startDay: 9, duration: 6, progress: 80 },
@@ -931,7 +959,6 @@
             { id: 'g5', title: 'Serah Terima (BAST)', startDay: 26, duration: 2, progress: 0 }
         ];
 
-        // State Laporan Harian & Persetujuan Berjenjang
         let REPORTS_DB = [
             { id: 'r1', title: 'Laporan Harian - Penarikan Konduktor A3CS', project: 'Perbaikan Jaringan SUTM Ujungberung', author: 'Dedi Kurniawan', date: '16 Nov 2026', status: 'MENUNGGU_SUPERVISOR', reason: '' },
             { id: 'r2', title: 'Laporan Harian - Penggantian Isolator', project: 'Penggantian Isolator Tower T.45–T.60', author: 'Dedi Kurniawan', date: '15 Nov 2026', status: 'DISETUJUI', reason: '' },
@@ -939,7 +966,6 @@
             { id: 'r4', title: 'Laporan Harian - Pondasi Gardu Hubung', project: 'Pembangunan Gardu Hubung GH Soreang', author: 'Dedi Kurniawan', date: '16 Nov 2026', status: 'MENUNGGU_PM', reason: '' }
         ];
 
-        // State Chatbox
         let CHAT_CHANNELS = [
             { id: 'ch-umum', name: '# Umum', isProject: false },
             { id: 'ch-p1', name: 'Perbaikan Jaringan SUTM Ujungberung', isProject: true },
@@ -959,7 +985,6 @@
             ]
         };
 
-        // State Aset & Alat Kerja
         let ASSETS_DB = [
             { name: 'Megger Insulation Tester 5kV Kyoritsu', warehouse: 'Gudang Utama Pusat (Bandung)', acquisitionDate: '12/01/2025', condition: 'Baik & Dikalibrasi', qty: 4 },
             { name: 'Hydraulic Crimping Tool 400mm', warehouse: 'Gudang Proyek Ujungberung', acquisitionDate: '05/03/2025', condition: 'Baik', qty: 2 },
@@ -969,23 +994,10 @@
             { name: 'Thermal Imager Camera Fluke', warehouse: 'Gudang Utama Pusat (Bandung)', acquisitionDate: '02/09/2025', condition: 'Perbaikan / Service', qty: 1 }
         ];
 
-        // State Database PK (Sesuai 15 Kolom Template)
         const DB_PK_HEADERS = [
-            'Nomor Kontrak',
-            'Nomor PK',
-            'Nama',
-            'Unit',
-            'Type',
-            'Vendor',
-            'Status',
-            'Nilai PK',
-            'Estimasi Nilai PK dan Pajak',
-            'Nilai Eksekusi',
-            'Estimasi Nilai Eksekusi dan Pajak',
-            'Nilai Disetujui',
-            'Estimasi Nilai Disetujui dan Pajak',
-            'Tanggal Mulai',
-            'Tanggal Selesai'
+            'Nomor Kontrak', 'Nomor PK', 'Nama', 'Unit', 'Type', 'Vendor', 'Status',
+            'Nilai PK', 'Estimasi Nilai PK dan Pajak', 'Nilai Eksekusi', 'Estimasi Nilai Eksekusi dan Pajak',
+            'Nilai Disetujui', 'Estimasi Nilai Disetujui dan Pajak', 'Tanggal Mulai', 'Tanggal Selesai'
         ];
 
         let DATABASE_PK = [
@@ -1098,7 +1110,6 @@
             return val.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
 
-        // Fungsi XLOOKUP / VLOOKUP dari Database PK ke Project Administration
         function xlookupDatabasePK(projectObj) {
             if (!projectObj) return null;
             const targetPkCode = String(projectObj.pk || '').trim().toLowerCase();
@@ -1138,10 +1149,6 @@
             return matchedCount;
         }
 
-        loadAppState();
-        syncAllProjectsWithDatabasePK();
-
-        // ==================== STATE LOG AKTIVITAS ====================
         let ACTIVITY_LOGS = [
             {
                 id: 'act-1',
@@ -1168,6 +1175,9 @@
                 time: '16 Nov, 10:10'
             }
         ];
+
+        loadAppState();
+        syncAllProjectsWithDatabasePK();
 
         function recordActivity(actionText, targetText) {
             const now = new Date();
@@ -1310,7 +1320,6 @@
             openWorkflowModal(projectId, stepKey);
         }
 
-        // State Session & Filter UI Interaktif
         let currentUser = USERS_DB[0];
         let currentCompany = 'PT Belvinda Abadi Galaksindo';
         let currentModule = 'admin';
@@ -1325,7 +1334,6 @@
         let activeGanttProjectId = 'p1';
         let draggedProjectId = null;
 
-        // ==================== FORMATTER & UTILITAS ====================
         function formatIDR(num) {
             return 'Rp ' + (Number(num) || 0).toLocaleString('id-ID');
         }
@@ -1368,13 +1376,11 @@
             const contractCode = String(projectObj.contractNo || '').trim().toLowerCase();
             const krCode = String(projectObj.kr || '').trim().toLowerCase();
 
-            // Prioritas 1: Cocokkan berdasarkan Nomor Kontrak Induk (contractNo)
             let matchedContract = CONTRACTS_DB.find(c => {
                 const noKtr = String(c.noKontrak || '').trim().toLowerCase();
                 return contractCode && noKtr === contractCode;
             });
 
-            // Prioritas 2: Fallback jika KR diisi nomor kontrak penuh
             if (!matchedContract && krCode && krCode !== '–') {
                 matchedContract = CONTRACTS_DB.find(c => {
                     const noKtr = String(c.noKontrak || '').trim().toLowerCase();
@@ -1510,11 +1516,23 @@
         function resetDemoState() {
             openConfirmDeleteModal(
                 'Reset Semua Data ke Pengaturan Awal?',
-                'Seluruh perubahan kontrak, proyek, import Database PK, catatan workflow, dan aset yang tersimpan di browser ini akan dikembalikan ke data awal.',
+                'Seluruh perubahan kontrak, proyek, import Database PK, catatan workflow, dan aset akan dikembalikan ke data awal.',
                 () => {
                     localStorage.removeItem(STORAGE_KEY);
                     localStorage.removeItem('BELVINDA_ERP_STATE');
-                    window.location.reload();
+                    if (IS_GAS_ENV) {
+                        google.script.run
+                            .withSuccessHandler((freshState) => {
+                                applyParsedStateObject(freshState);
+                                syncAllProjectsWithDatabasePK();
+                                syncUserUI();
+                                renderCurrentModule();
+                                showToast('Database Google Sheets telah direset ke pengaturan awal!', 'success');
+                            })
+                            .resetDatabaseToDefault();
+                    } else {
+                        window.location.reload();
+                    }
                 }
             );
         }
@@ -1654,19 +1672,6 @@
             showToast(`Verifikasi berhasil! Perusahaan "${comp}" telah terdaftar.`, 'success');
         }
 
-        function quickSwitchRole(email) {
-            const found = USERS_DB.find(u => u.email === email);
-            if (found) {
-                currentUser = found;
-                syncUserUI();
-                renderCurrentModule();
-                if (!document.getElementById('workflowModal').classList.contains('hidden')) {
-                    renderWorkflowModalContent();
-                }
-                showToast(`Beralih peran ke ${found.name} (${found.role})`, 'info');
-            }
-        }
-
         function enterApp() {
             document.getElementById('authScreen').classList.add('hidden');
             document.getElementById('appShell').classList.remove('hidden');
@@ -1691,7 +1696,6 @@
             document.getElementById('sidebarUserRole').textContent = currentUser.role;
             document.getElementById('userAvatarBadge').textContent = currentUser.name.charAt(0).toUpperCase();
 
-            // Sinkronisasi Logo & Nama Perusahaan di Sidebar Atas & Pojok Kanan Atas Header
             const sidebarTitle = document.getElementById('sidebarBrandTitle');
             const sidebarSub = document.getElementById('sidebarBrandSubtitle');
             const sidebarLogoBox = document.getElementById('sidebarBrandLogoBox');
@@ -1716,9 +1720,6 @@
 
             if (sidebarLogoBox) sidebarLogoBox.innerHTML = logoInnerHtml;
             if (headerRightLogoBox) headerRightLogoBox.innerHTML = logoInnerHtml;
-
-            const sel = document.getElementById('quickRoleSelect');
-            if (sel) sel.value = currentUser.email;
         }
 
         function toggleMobileSidebar() {
@@ -1749,7 +1750,6 @@
             return list;
         }
 
-        // ==================== NAVIGASI MODUL ====================
         function navigateTo(mod) {
             currentModule = mod;
             document.querySelectorAll('.nav-item').forEach(btn => {
@@ -1800,7 +1800,6 @@
             const totalBayar = allAccessible.reduce((s, p) => s + (Number(p.pembayaran) || 0), 0);
             const pctSerap = totalKontrak > 0 ? ((totalDmt / totalKontrak) * 100).toFixed(1) : 0;
 
-            // Metrik Khusus Owner: Piutang DMT Belum Cair & Eksekusi Belum Jadi DMT
             const piutangDmtBelumCair = Math.max(0, totalDmt - totalBayar);
             const eksekusiBelumDmt = Math.max(0, totalEks - totalDmt);
             const pctCashIn = totalDmt > 0 ? Math.round((totalBayar / totalDmt) * 100) : 0;
@@ -1811,7 +1810,6 @@
             const countSelesai = allAccessible.filter(p => p.status === 'Selesai').length;
             const totalProj = allAccessible.length || 1;
 
-            // Hitung Rata-rata Kelengkapan Berkas Work Flow Seluruh Proyek
             const totalWfCells = (allAccessible.length * WORKFLOW_STEPS.length) || 1;
             let totalApprovedCells = 0;
             let totalReviewCells = 0;
@@ -1824,7 +1822,6 @@
             });
             const overallWfPct = Math.round((totalApprovedCells / totalWfCells) * 100);
 
-            // Rekap Kinerja Per Pekerja / PIC
             const workerMap = {};
             allAccessible.forEach(p => {
                 const wName = (p.pekerja && p.pekerja !== '–') ? p.pekerja : 'Belum Ditentukan';
@@ -1867,7 +1864,6 @@
                     </div>
                 </div>
 
-                <!-- BARIS KHUSUS OWNER: CORONG KONVERSI UANG & PIUTANG TERTAHAN -->
                 <div class="bg-gradient-to-r from-[#002F54] via-pln-dark to-pln-blue text-white p-5 rounded-2xl shadow-md mb-6">
                     <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-white/15">
                         <div class="flex items-center gap-2">
@@ -1905,7 +1901,6 @@
                     </div>
                 </div>
 
-                <!-- Baris 1: 4 Kartu KPI Operasional -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
                     <div onclick="navigateTo('project')" class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-xs hover:border-pln-blue cursor-pointer transition group">
                         <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase group-hover:text-pln-blue">
@@ -1941,7 +1936,6 @@
                     </div>
                 </div>
 
-                <!-- Baris 2: 3 Kartu KPI Finansial -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
                     <div onclick="navigateTo('kontrak')" class="bg-gradient-to-br from-pln-blue to-pln-dark text-white p-5 rounded-2xl shadow-md cursor-pointer hover:opacity-95 transition">
                         <div class="flex items-center justify-between text-xs font-bold text-blue-200 uppercase">
@@ -1969,9 +1963,7 @@
                     </div>
                 </div>
 
-                <!-- Baris 3: Grafik Nilai Kontrak vs Realisasi Verifikasi vs Realisasi DMT & Donut Chart Status Project -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                    <!-- Grouped 3-Bar Chart: Kontrak vs Realisasi Verifikasi vs Realisasi DMT -->
                     <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
                         <div>
                             <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
@@ -1986,7 +1978,6 @@
                                 </div>
                             </div>
 
-                            <!-- 3-Bar Vertical Chart -->
                             <div class="grid grid-cols-3 gap-4 items-end h-52 pt-6 px-4 border-b border-slate-200">
                                 ${CONTRACTS_DB.slice(0, 3).map(c => {
                                     const relProjs = PROJECTS_DB.filter(p => p.contractNo === c.noKontrak);
@@ -1999,15 +1990,12 @@
                                     return `
                                         <div onclick="navigateTo('kontrak')" class="flex flex-col items-center gap-2 cursor-pointer">
                                             <div class="flex items-end gap-1.5 sm:gap-2.5 w-full justify-center">
-                                                <!-- Bar Nilai Kontrak -->
                                                 <div class="w-6 sm:w-10 bg-pln-blue rounded-t-lg transition-all hover:opacity-90 relative group" style="height:${hKontrak}px">
                                                     <span class="hidden group-hover:block absolute -top-7 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-0.5 rounded whitespace-nowrap z-20">Kontrak: ${formatIDR(c.nilaiKontrak)}</span>
                                                 </div>
-                                                <!-- Bar Realisasi Verifikasi -->
                                                 <div class="w-6 sm:w-10 bg-pln-cyan rounded-t-lg transition-all hover:opacity-90 relative group" style="height:${hVer}px">
                                                     <span class="hidden group-hover:block absolute -top-7 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-0.5 rounded whitespace-nowrap z-20">Verifikasi: ${formatIDR(realVer)}</span>
                                                 </div>
-                                                <!-- Bar Realisasi DMT -->
                                                 <div class="w-6 sm:w-10 bg-pln-yellow rounded-t-lg transition-all hover:opacity-90 relative group" style="height:${hReal}px">
                                                     <span class="hidden group-hover:block absolute -top-7 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-0.5 rounded whitespace-nowrap z-20">DMT: ${formatIDR(realDmt)}</span>
                                                 </div>
@@ -2021,7 +2009,6 @@
                             </div>
                         </div>
 
-                        <!-- Ringkasan Angka Total Komparasi 3 Nilai -->
                         <div class="grid grid-cols-3 gap-3 mt-4 pt-3 border-t border-slate-100 text-xs">
                             <div class="p-2.5 rounded-xl bg-pln-light/50 border border-pln-blue/20">
                                 <div class="text-[10px] font-bold text-slate-500 uppercase">Total Nilai Kontrak</div>
@@ -2038,7 +2025,6 @@
                         </div>
                     </div>
 
-                    <!-- Donut Chart Status Project -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
                         <div class="flex items-center justify-between">
                             <h3 class="font-bold text-slate-900">Status Project</h3>
@@ -2066,7 +2052,6 @@
                     </div>
                 </div>
 
-                <!-- Baris 3B: GRAFIK DETAIL PER KONTRAK (NILAI KONTRAK VS REALISASI VERIFIKASI VS REALISASI DMT) -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs mb-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                         <div>
@@ -2095,8 +2080,6 @@
                                         </div>
                                         <span class="px-2 py-0.5 rounded-full bg-white border border-slate-200 text-[10px] font-bold text-slate-600 shrink-0">${relProjs.length} PK</span>
                                     </div>
-
-                                    <!-- Bar 1: Nilai Kontrak -->
                                     <div>
                                         <div class="flex justify-between text-[11px] mb-1">
                                             <span class="font-semibold text-slate-600">Nilai Kontrak (100%)</span>
@@ -2106,8 +2089,6 @@
                                             <div class="h-full bg-pln-blue rounded-full w-full"></div>
                                         </div>
                                     </div>
-
-                                    <!-- Bar 2: Realisasi Verifikasi -->
                                     <div>
                                         <div class="flex justify-between text-[11px] mb-1">
                                             <span class="font-semibold text-slate-600">Realisasi Verifikasi (${pctVer}%)</span>
@@ -2117,8 +2098,6 @@
                                             <div class="h-full bg-pln-cyan rounded-full transition-all" style="width:${pctVer}%"></div>
                                         </div>
                                     </div>
-
-                                    <!-- Bar 3: Realisasi DMT -->
                                     <div>
                                         <div class="flex justify-between text-[11px] mb-1">
                                             <span class="font-semibold text-slate-600">Realisasi DMT (${pctDmt}%)</span>
@@ -2128,7 +2107,6 @@
                                             <div class="h-full bg-pln-yellow rounded-full transition-all" style="width:${pctDmt}%"></div>
                                         </div>
                                     </div>
-
                                     <div class="pt-2 border-t border-slate-200/80 flex items-center justify-between text-[10.5px] text-slate-500">
                                         <span>Selisih Verifikasi &rarr; DMT:</span>
                                         <b class="${selisihVerDmt > 0 ? 'text-amber-700' : 'text-emerald-600'}">${formatIDR(selisihVerDmt)}</b>
@@ -2139,9 +2117,7 @@
                     </div>
                 </div>
 
-                <!-- Baris 4: PANTAUAN BOTTLENECK 12 TAHAP WORK FLOW & KINERJA PEKERJA -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
-                    <!-- Radar Bottleneck 12 Tahapan Berkas -->
                     <div class="lg:col-span-7 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
                         <div class="flex items-center justify-between mb-3">
                             <div>
@@ -2174,7 +2150,6 @@
                         </div>
                     </div>
 
-                    <!-- Rapor Kinerja Tim / Pekerja -->
                     <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
                         <div class="flex items-center justify-between mb-3">
                             <div>
@@ -2208,7 +2183,6 @@
                     </div>
                 </div>
 
-                <!-- Baris 5: MATRIKS MONITORING SELURUH PEKERJAAN (OWNER FULL VISIBILITY) -->
                 <div id="ownerAllProjectsSection" class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
                     <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div>
@@ -2616,7 +2590,7 @@
             showToast('Kontrak baru berhasil ditambahkan!', 'success');
         }
 
-        // ==================== MODUL 3: PROJECT (TABEL, KARTU, KANBAN DRAG & DROP) ====================
+        // ==================== MODUL 3: PROJECT ====================
         function renderProject(container) {
             const projects = getAccessibleProjects();
             container.innerHTML = `
@@ -2633,7 +2607,6 @@
                     ` : ''}
                 </div>
 
-                <!-- Toolbar Switcher Tabel / Kartu / Kanban + Pencarian & Filter Status -->
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
                     <div class="flex flex-wrap items-center gap-2">
                         <div class="inline-flex p-1 bg-white rounded-xl border border-slate-200 shadow-2xs">
@@ -2682,8 +2655,8 @@
                                     <th class="py-3.5 px-3 min-w-[230px]">Pekerjaan <i class="fa-solid fa-pen text-[9px] text-slate-400 ml-0.5"></i></th>
                                     <th class="py-3.5 px-3">Lokasi <i class="fa-solid fa-pen text-[9px] text-slate-400 ml-0.5"></i></th>
                                     <th class="py-3.5 px-3">Tanggal PK <i class="fa-solid fa-pen text-[9px] text-slate-400 ml-0.5"></i></th>
-                                    <th class="py-3.5 px-3 text-center w-24" title="Rumus Otomatis: Tanggal Hari Ini dikurangi Tanggal PK (Tidak bisa diedit)">HPL</th>
-                                    <th class="py-3.5 px-2 text-center w-20" title="Klik logo Google Earth untuk membuka lokasi">EART</th>
+                                    <th class="py-3.5 px-3 text-center w-24">HPL</th>
+                                    <th class="py-3.5 px-2 text-center w-20">EART</th>
                                     <th class="py-3.5 px-3">Catatan <i class="fa-solid fa-pen text-[9px] text-slate-400 ml-0.5"></i></th>
                                     <th class="py-3.5 px-3">Status</th>
                                     <th class="py-3.5 px-3 text-center w-24">Aksi</th>
@@ -2698,23 +2671,19 @@
                                     <tr class="hover:bg-blue-50/30 transition group">
                                         <td class="py-2.5 px-2.5">
                                             <input type="text" value="${p.pt}" onchange="updateProjectField('${p.id}', 'pt', this.value, 'Pelanggan')"
-                                                title="Klik untuk edit Pelanggan"
                                                 class="w-full min-w-[130px] px-2 py-1.5 rounded-lg border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent font-semibold text-slate-800 text-xs focus:outline-none transition">
                                         </td>
                                         <td class="py-2.5 px-2.5">
                                             <input type="text" value="${p.direksi}" onchange="updateProjectField('${p.id}', 'direksi', this.value, 'Direksi')"
-                                                title="Klik untuk edit Direksi"
                                                 class="w-full min-w-[110px] px-2 py-1.5 rounded-lg border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent text-slate-600 text-xs focus:outline-none transition">
                                         </td>
                                         <td class="py-2.5 px-2.5">
                                             <input type="text" value="${p.pekerja || ''}" placeholder="Nama Pekerja..." onchange="updateProjectField('${p.id}', 'pekerja', this.value, 'Pekerja')"
-                                                title="Klik untuk edit Pekerja"
                                                 class="w-full min-w-[125px] px-2 py-1.5 rounded-lg border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent font-medium text-slate-700 text-xs focus:outline-none transition">
                                         </td>
                                         <td class="py-2.5 px-2.5">
                                             <div class="flex items-center gap-1">
                                                 <input type="text" value="${p.pekerjaan}" onchange="updateProjectField('${p.id}', 'pekerjaan', this.value, 'Pekerjaan')"
-                                                    title="Klik untuk edit Nama Pekerjaan"
                                                     class="w-full min-w-[200px] px-2 py-1.5 rounded-lg border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent font-bold text-pln-blue text-xs focus:outline-none transition">
                                                 <button type="button" onclick="openWorkflowModal('${p.id}', '${firstStepKey}')" title="Buka Detail Work Flow Berkas"
                                                     class="p-1.5 rounded-lg text-slate-400 hover:text-pln-blue hover:bg-pln-light transition shrink-0">
@@ -2724,24 +2693,18 @@
                                         </td>
                                         <td class="py-2.5 px-2.5">
                                             <input type="text" value="${p.lokasi}" onchange="updateProjectField('${p.id}', 'lokasi', this.value, 'Lokasi')"
-                                                title="Klik untuk edit Lokasi"
                                                 class="w-full min-w-[125px] px-2 py-1.5 rounded-lg border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent text-slate-600 text-xs focus:outline-none transition">
                                         </td>
                                         <td class="py-2.5 px-2.5">
                                             <input type="text" value="${p.tglPk}" placeholder="DD/MM/YYYY" onchange="updateProjectField('${p.id}', 'tglPk', this.value, 'Tanggal PK')"
-                                                title="Klik untuk edit Tanggal PK (HPL otomatis dihitung ulang)"
                                                 class="w-24 px-2 py-1.5 rounded-lg border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent text-slate-700 font-mono font-semibold text-xs focus:outline-none transition">
                                         </td>
-                                        <!-- KOLOM HPL: OTOMATIS & READ-ONLY -->
-                                        <td class="py-2.5 px-2 text-center select-none whitespace-nowrap"
-                                            title="Otomatis dari Tanggal PK (${p.tglPk}) ke Hari Ini (${hplCalc.todayStr}) — Tidak dapat diedit manual">
+                                        <td class="py-2.5 px-2 text-center select-none whitespace-nowrap">
                                             <span class="font-bold text-slate-700">${hplCalc.label}</span>
                                         </td>
-                                        <!-- KOLOM EART: LOGO GOOGLE EARTH -->
                                         <td class="py-2.5 px-2 text-center whitespace-nowrap">
                                             <div class="inline-flex items-center justify-center gap-1">
                                                 <a href="${earthHref}" target="_blank" rel="noopener noreferrer"
-                                                    title="Buka Google Earth: ${earthHref}"
                                                     class="w-8 h-8 rounded-full bg-sky-50 hover:bg-pln-blue text-pln-blue hover:text-white border border-pln-blue/25 inline-flex items-center justify-center shadow-2xs transition hover:scale-105">
                                                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                         <circle cx="12" cy="12" r="9"/>
@@ -2757,7 +2720,6 @@
                                         </td>
                                         <td class="py-2.5 px-2.5">
                                             <input type="text" value="${p.catatan}" onchange="updateProjectField('${p.id}', 'catatan', this.value, 'Catatan')"
-                                                title="Klik untuk edit Catatan"
                                                 class="w-36 px-2 py-1.5 rounded-lg border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent text-slate-600 text-xs focus:outline-none transition">
                                         </td>
                                         <td class="py-2.5 px-3">
@@ -2841,7 +2803,7 @@
             } else {
                 const cols = ['Belum Mulai', 'Sedang Berjalan', 'Inspeksi', 'Selesai'];
                 viewEl.innerHTML = `
-                    <div class="mb-2 text-[11px] text-pln-blue font-semibold"><i class="fa-solid fa-hand-pointer mr-1"></i>Tips: Seret dan lepas (Drag & Drop) kartu proyek antar kolom untuk mengubah status, atau klik ikon pensil untuk mengedit data proyek.</div>
+                    <div class="mb-2 text-[11px] text-pln-blue font-semibold"><i class="fa-solid fa-hand-pointer mr-1"></i>Tips: Seret dan lepas (Drag & Drop) kartu proyek antar kolom untuk mengubah status.</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                         ${cols.map(col => {
                             const items = projects.filter(p => p.status === col);
@@ -3213,7 +3175,7 @@
             showToast('Project & Kanal Chat otomatis berhasil dibuat!', 'success');
         }
 
-        // ==================== MODUL 4: PROJECT ADMINISTRATION + WORK FLOW KERJA KELENGKAPAN BERKAS ====================
+        // ==================== MODUL 4: PROJECT ADMINISTRATION + WORK FLOW KERJA ====================
         let paChecklistFilter = {
             pelanggan: null,
             direksi: null,
@@ -3372,7 +3334,6 @@
                         <p class="text-sm text-slate-500">Administrasi PK, KR, SOSYS, nilai finansial, hingga <b>Work Flow Kerja Kelengkapan Berkas</b> berjenjang.</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-2.5">
-                        <!-- FITUR FOKUS WORKFLOW -->
                         <label class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border-2 cursor-pointer transition select-none ${focusWorkflowMode ? 'bg-pln-blue text-white border-pln-blue shadow-md' : 'bg-white text-slate-700 border-slate-300 hover:border-pln-blue'}">
                             <input type="checkbox" ${focusWorkflowMode ? 'checked' : ''} onchange="toggleFocusWorkflow()" class="w-4 h-4 accent-pln-yellow rounded cursor-pointer">
                             <span class="text-xs font-bold"><i class="fa-solid fa-crosshairs mr-1"></i> Fokus Workflow</span>
@@ -3404,7 +3365,6 @@
                     </div>
                 </div>
 
-                <!-- PANEL FILTER CEKLIS MULTI-PILIHAN (PELANGGAN, DIREKSI, SOSYS, PK) -->
                 <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs mb-4 text-xs">
                     <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b border-slate-100">
                         <span class="font-extrabold text-slate-700 flex items-center gap-1.5">
@@ -3427,9 +3387,7 @@
                     </div>
                 </div>
 
-                <!-- TABEL PROJECT ADMINISTRATION + WORK FLOW KERJA (DESAIN RAPI SESUAI GAMBAR) -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <!-- Top Info Banner Navy Gelap Terintegrasi -->
                     <div class="px-5 py-2.5 bg-[#002F54] text-white flex flex-wrap items-center justify-between gap-3 text-xs border-b border-white/10">
                         <div class="text-blue-100 font-medium">
                             <i class="fa-solid fa-hand-pointer text-pln-yellow mr-1.5"></i>Klik sel tahapan <b class="text-white">Work Flow Kerja</b> untuk unggah foto/dokumen & approval.
@@ -3444,7 +3402,6 @@
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <!-- BARIS HEADER GRUP ATAS -->
                                 <tr class="text-[11px] font-extrabold uppercase tracking-wider">
                                     <th colspan="${focusWorkflowMode ? 4 : 9}" class="py-2.5 px-4 bg-slate-100 text-slate-700 border-b border-r border-slate-200 align-middle">
                                         IDENTITAS PEKERJAAN & ADMINISTRASI PK / KR
@@ -3469,7 +3426,6 @@
                                     </th>
                                 </tr>
 
-                                <!-- BARIS HEADER KOLOM BAWAH -->
                                 <tr class="text-[11px] font-extrabold uppercase border-b border-slate-200 bg-[#F4F8FB] text-[#003B66]">
                                     <th class="py-3 px-2.5 border-r border-slate-200 w-10 text-center align-middle">NO</th>
                                     <th class="py-3 px-3 border-r border-slate-200 min-w-[140px] align-middle">PELANGGAN</th>
@@ -3491,7 +3447,7 @@
 
                                     ${WORKFLOW_STEPS.map((step, sIdx) => {
                                         return `
-                                            <th ${isSuperAdmin ? `onclick="openEditSingleWorkflowStepModal(${sIdx})" title="Klik untuk ubah atau hapus judul kolom '${step.label}' (Otoritas Super Admin)"` : ''}
+                                            <th ${isSuperAdmin ? `onclick="openEditSingleWorkflowStepModal(${sIdx})" title="Klik untuk ubah atau hapus judul kolom '${step.label}'"` : ''}
                                                 class="py-3 px-2 bg-[#F4F8FB] text-[#003B66] border-r border-slate-200 text-center align-middle w-[124px] min-w-[124px] max-w-[124px] whitespace-nowrap ${isSuperAdmin ? 'cursor-pointer hover:bg-pln-yellow/30 transition group' : ''}">
                                                 <span class="inline-flex items-center justify-center gap-1 text-[11px] font-extrabold tracking-tight">
                                                     <span>${step.label}</span>
@@ -3514,17 +3470,14 @@
                                         <td class="py-2 px-2 text-center font-bold text-slate-500 border-r border-slate-200 align-middle">${idx + 1}</td>
                                         <td class="py-2 px-2 border-r border-slate-200 align-middle">
                                             <input type="text" value="${p.pt}" onchange="updateProjectField('${p.id}', 'pt', this.value, 'Pelanggan')"
-                                                title="Klik untuk edit Pelanggan"
                                                 class="w-full px-1.5 py-1 rounded border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent font-semibold text-slate-800 text-[11.5px] focus:outline-none transition">
                                         </td>
                                         <td class="py-2 px-2 border-r border-slate-200 align-middle">
                                             <input type="text" value="${p.direksi}" onchange="updateProjectField('${p.id}', 'direksi', this.value, 'Direksi')"
-                                                title="Klik untuk edit Direksi"
                                                 class="w-full px-1.5 py-1 rounded border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent text-slate-600 text-[11.5px] focus:outline-none transition">
                                         </td>
                                         <td class="py-2 px-2 border-r border-slate-200 align-middle">
                                             <input type="text" value="${p.pekerjaan}" onchange="updateProjectField('${p.id}', 'pekerjaan', this.value, 'Pekerjaan')"
-                                                title="Klik untuk edit Pekerjaan"
                                                 class="w-full px-1.5 py-0.5 rounded border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent font-bold text-slate-900 text-[11.5px] leading-snug focus:outline-none transition">
                                             <div class="text-[10px] font-mono text-pln-blue px-1.5">${p.pk} &bull; ${p.lokasi}</div>
                                         </td>
@@ -3532,18 +3485,15 @@
                                         ${!focusWorkflowMode ? `
                                             <td class="py-2 px-2 border-r border-slate-200 align-middle">
                                                 <input type="text" value="${p.lokasi}" onchange="updateProjectField('${p.id}', 'lokasi', this.value, 'Lokasi')"
-                                                    title="Klik untuk edit Lokasi"
                                                     class="w-full px-1.5 py-1 rounded border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent text-slate-600 text-[11.5px] focus:outline-none transition">
                                             </td>
                                             <td class="py-2 px-2 font-mono text-slate-700 border-r border-slate-200 text-[11px] align-middle">
                                                 <input type="text" list="dbPkOptionsList" value="${p.pk}"
-                                                    title="Klik untuk edit PK"
                                                     onchange="updateProjectPKLookupKey('${p.id}', this.value)"
                                                     class="w-full px-1.5 py-1 rounded border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent font-mono text-slate-700 text-[11px] focus:outline-none transition">
                                             </td>
                                             <td class="py-2 px-2 border-r border-slate-200 align-middle">
                                                 <input type="text" value="${p.kr}" onchange="updateProjectField('${p.id}', 'kr', this.value, 'KR')"
-                                                    title="Klik untuk edit KR"
                                                     class="w-full px-1.5 py-1 rounded border border-transparent hover:border-slate-300 focus:border-pln-blue focus:bg-white bg-transparent font-mono text-slate-700 text-[11px] focus:outline-none transition">
                                             </td>
                                             <td class="py-2 px-2 border-r border-slate-200 align-middle text-center">
@@ -3551,8 +3501,7 @@
                                                     ${p.sosys}
                                                 </span>
                                             </td>
-                                            <td class="py-2 px-2 border-r border-slate-200 text-center whitespace-nowrap select-none align-middle"
-                                                title="Otomatis diambil dari SISA HARI di Kontrak Rinci (${getProjectContractSisaHari(p).contractNo || p.contractNo || '–'})">
+                                            <td class="py-2 px-2 border-r border-slate-200 text-center whitespace-nowrap select-none align-middle">
                                                 <span class="px-2.5 py-1 rounded-full bg-pln-light text-pln-blue font-extrabold text-[10.5px]">
                                                     ${getProjectContractSisaHari(p).label}
                                                 </span>
@@ -3563,11 +3512,10 @@
                                             <td onclick="openEditFinancialModal('${p.id}')" class="py-2 px-2.5 text-right font-bold text-pln-blue border-r border-slate-200 text-[11.5px] align-middle whitespace-nowrap ${canManageCoreData() ? 'cursor-pointer hover:bg-pln-light/60' : 'cursor-not-allowed'}">${formatIDR(p.nilaiDmt)}</td>
                                             <td onclick="openEditFinancialModal('${p.id}')" class="py-2 px-2.5 text-right font-bold text-emerald-600 border-r border-slate-200 text-[11.5px] align-middle whitespace-nowrap ${canManageCoreData() ? 'cursor-pointer hover:bg-pln-light/60' : 'cursor-not-allowed'}">
                                                 <div>${formatIDR(p.pembayaran)}</div>
-                                                ${p.catatan && p.catatan !== '–' ? `<div class="text-[9.5px] font-normal text-amber-700 bg-amber-50 border border-amber-200 rounded px-1 py-0.5 mt-0.5 truncate max-w-[115px]" title="Catatan: ${p.catatan}"><i class="fa-regular fa-note-sticky mr-0.5"></i>${p.catatan}</div>` : ''}
+                                                ${p.catatan && p.catatan !== '–' ? `<div class="text-[9.5px] font-normal text-amber-700 bg-amber-50 border border-amber-200 rounded px-1 py-0.5 mt-0.5 truncate max-w-[115px]"><i class="fa-regular fa-note-sticky mr-0.5"></i>${p.catatan}</div>` : ''}
                                             </td>
                                         ` : ''}
 
-                                        <!-- SEL WORK FLOW KERJA (DESAIN TOMBOL KAPSUL BERSIH SESUAI GAMBAR) -->
                                         ${WORKFLOW_STEPS.map((step) => {
                                             if (!p.workflow[step.key]) {
                                                 p.workflow[step.key] = { status: 'none', by: '', approvedBy: '', files: [], notes: [] };
@@ -3590,7 +3538,6 @@
                                             if (cell.status === 'final_approved') {
                                                 pillButtonHtml = `
                                                     <button type="button" onclick="openWorkflowModal('${p.id}', '${step.key}')"
-                                                        title="${step.label}: Approved (${fileCount} berkas, ${noteCount} catatan)"
                                                         class="w-full h-9 px-2.5 rounded-lg bg-[#DDFBEE] hover:bg-[#c5f6e0] border border-[#6EE7B7] text-[#065F46] font-extrabold text-[11.5px] inline-flex items-center justify-center gap-1.5 transition shadow-2xs">
                                                         <i class="fa-solid fa-circle-check text-[#059669] text-xs shrink-0"></i>
                                                         <span>OK</span>
@@ -3601,7 +3548,6 @@
                                             } else if (cell.status === 'submitted' || cell.status === 'supervisor_approved') {
                                                 pillButtonHtml = `
                                                     <button type="button" onclick="openWorkflowModal('${p.id}', '${step.key}')"
-                                                        title="${step.label}: Menunggu Review / Approval (${fileCount} berkas, ${noteCount} catatan)"
                                                         class="w-full h-9 px-2 rounded-lg bg-[#FEF9E7] hover:bg-[#FEF0C7] border border-[#FCD34D] text-[#92400E] font-extrabold text-[11px] inline-flex items-center justify-center gap-1 transition shadow-2xs">
                                                         <i class="fa-solid fa-clock text-[#B45309] text-xs shrink-0"></i>
                                                         <span>Review</span>
@@ -3612,7 +3558,6 @@
                                             } else {
                                                 pillButtonHtml = `
                                                     <button type="button" onclick="openWorkflowModal('${p.id}', '${step.key}')"
-                                                        title="${step.label}: Klik untuk unggah berkas & ajukan approval"
                                                         class="w-full h-9 px-2.5 rounded-lg bg-[#F8FAFC] hover:bg-pln-light/60 border border-slate-200 hover:border-pln-blue/40 text-slate-500 hover:text-pln-blue font-semibold text-[11.5px] inline-flex items-center justify-center gap-1.5 transition">
                                                         <i class="fa-regular fa-circle text-slate-400 text-[11px] shrink-0"></i>
                                                         <span>Upload</span>
@@ -3629,7 +3574,6 @@
                                             `;
                                         }).join('')}
 
-                                        <!-- KOLOM AKSI PALING KANAN -->
                                         <td class="py-2 px-2 bg-white border-l border-slate-200 text-center align-middle whitespace-nowrap">
                                             ${canManageCoreData() ? `
                                                 <div class="inline-flex items-center justify-center gap-1">
@@ -3648,7 +3592,6 @@
                                 `;
                                 }).join('')}
 
-                                <!-- BARIS TOTAL AGREGAT -->
                                 <tr class="bg-slate-100 font-extrabold text-xs border-t-2 border-slate-300">
                                     <td colspan="4" class="py-3.5 px-4 text-slate-800 border-r border-slate-200 align-middle">TOTAL (${projects.length} Proyek Tampil)</td>
                                     ${!focusWorkflowMode ? `
@@ -3668,7 +3611,6 @@
                     </div>
                 </div>
 
-                <!-- Datalist Pilihan No PK dari Database PK -->
                 <datalist id="dbPkOptionsList">
                     ${DATABASE_PK.map(r => `<option value="${r.nomorPk}">${r.nama} (${r.status})</option>`).join('')}
                 </datalist>
@@ -3676,12 +3618,7 @@
         }
 
         function resetPaFilters() {
-            paChecklistFilter = {
-                pelanggan: null,
-                direksi: null,
-                sosys: null,
-                pk: null
-            };
+            paChecklistFilter = { pelanggan: null, direksi: null, sosys: null, pk: null };
             paOpenFilterDropdown = null;
             paPkDropdownSearch = '';
             renderCurrentModule();
@@ -3816,26 +3753,11 @@
             showToast('Data Project Administration berhasil diekspor ke CSV!', 'success');
         }
 
-        // ==================== FITUR IMPORT & TEMPLATE EXCEL PROJECT ADMINISTRATION ====================
         function getProjectAdminTemplateHeaders() {
             return [
-                'No Kontrak Induk',
-                'Pelanggan',
-                'Direksi',
-                'Pekerja',
-                'Pekerjaan',
-                'Lokasi',
-                'Tanggal PK',
-                'PK',
-                'KR',
-                'SOSYS',
-                'Status Proyek',
-                'Nilai PK',
-                'Nilai Eksekusi',
-                'Nilai Verifikasi',
-                'Nilai DMT',
-                'Pembayaran',
-                'Catatan',
+                'No Kontrak Induk', 'Pelanggan', 'Direksi', 'Pekerja', 'Pekerjaan', 'Lokasi',
+                'Tanggal PK', 'PK', 'KR', 'SOSYS', 'Status Proyek', 'Nilai PK', 'Nilai Eksekusi',
+                'Nilai Verifikasi', 'Nilai DMT', 'Pembayaran', 'Catatan',
                 ...WORKFLOW_STEPS.map(s => s.label)
             ];
         }
@@ -3911,8 +3833,8 @@
                     <div class="p-3.5 rounded-xl bg-pln-light/70 border border-pln-blue/25 text-slate-700 leading-relaxed">
                         <div class="font-extrabold text-pln-dark text-sm mb-1"><i class="fa-solid fa-bolt text-pln-yellowDark mr-1"></i>Panduan Cepat Import Massal</div>
                         <ul class="list-disc pl-4 space-y-1 text-[11.5px]">
-                            <li>Unduh <b>Template_Import_Project_Administration.xlsx</b> terlebih dahulu atau gunakan file Excel Anda yang memiliki kolom seperti <b>Pelanggan, Direksi, Pekerja, Pekerjaan, Lokasi, PK, KR, SOSYS, Nilai PK, Nilai DMT, Pembayaran</b>, maupun kolom tahapan Work Flow (isi dengan <code>OK</code>, <code>REVIEW</code>, atau <code>BELUM</code>).</li>
-                            <li>Semua baris proyek yang diimpor akan otomatis muncul juga di menu <b>Project</b> dan <b>Dashboard Owner</b>.</li>
+                            <li>Unduh <b>Template_Import_Project_Administration.xlsx</b> terlebih dahulu atau gunakan file Excel Anda.</li>
+                            <li>Semua baris proyek yang diimpor akan otomatis disimpan ke Google Sheets.</li>
                         </ul>
                         <button type="button" onclick="downloadTemplateProjectAdmin()" class="mt-2.5 px-3 py-1.5 rounded-lg bg-white hover:bg-pln-blue hover:text-white text-pln-blue border border-pln-blue/30 font-bold transition inline-flex items-center gap-1.5 shadow-2xs">
                             <i class="fa-solid fa-download"></i> Unduh Template_Import_Project_Administration.xlsx
@@ -3926,14 +3848,14 @@
                                 <input type="radio" name="paImportMode" value="merge" checked class="mt-0.5 accent-pln-blue">
                                 <div>
                                     <div class="font-extrabold text-slate-900">Tambah & Perbarui (Aman)</div>
-                                    <div class="text-[11px] text-slate-500">Menambahkan proyek baru & memperbarui proyek yang No. PK-nya sama tanpa menghapus foto/berkas yang sudah ada.</div>
+                                    <div class="text-[11px] text-slate-500">Menambahkan proyek baru & memperbarui proyek yang No. PK-nya sama.</div>
                                 </div>
                             </label>
                             <label class="p-3 rounded-xl border border-slate-200 hover:border-rose-400 bg-white cursor-pointer flex items-start gap-2.5">
                                 <input type="radio" name="paImportMode" value="replace" class="mt-0.5 accent-rose-600">
                                 <div>
                                     <div class="font-extrabold text-rose-700">Ganti Semua Data (Overwrite)</div>
-                                    <div class="text-[11px] text-slate-500">Menghapus seluruh daftar proyek lama dan menggantinya 100% dengan isi file Excel yang diunggah.</div>
+                                    <div class="text-[11px] text-slate-500">Menghapus seluruh daftar proyek lama dan menggantinya 100% dengan isi file Excel.</div>
                                 </div>
                             </label>
                         </div>
@@ -3944,7 +3866,6 @@
                         <label class="flex flex-col items-center justify-center w-full p-5 border-2 border-dashed border-pln-blue/50 hover:border-pln-blue bg-slate-50 hover:bg-pln-light/40 rounded-2xl cursor-pointer transition">
                             <i class="fa-solid fa-file-excel text-2xl text-emerald-600 mb-1.5"></i>
                             <span class="font-extrabold text-pln-blue text-sm">Klik untuk pilih file Excel / CSV Anda</span>
-                            <span class="text-[11px] text-slate-400 mt-0.5">Mendukung ratusan baris sekaligus (.xlsx, .xls, .csv)</span>
                             <input type="file" accept=".xlsx,.xls,.csv" onchange="handleImportProjectAdminFile(event)" class="hidden">
                         </label>
                     </div>
@@ -3985,7 +3906,6 @@
                         return;
                     }
 
-                    // Cari baris header secara otomatis (maks 5 baris teratas)
                     let headerRowIdx = 0;
                     for (let i = 0; i < Math.min(5, rawRows.length); i++) {
                         const rowStr = rawRows[i].join(' ').toLowerCase();
@@ -4025,7 +3945,6 @@
                     const idxBayar = findCol(['pembayaran', 'nilai pembayaran', 'bayar', 'terbayar'], ['pembayaran']);
                     const idxCatatan = findCol(['catatan', 'keterangan', 'kendala'], ['catatan']);
 
-                    // Map indeks kolom Work Flow
                     const wfColMap = {};
                     WORKFLOW_STEPS.forEach(step => {
                         const sIdx = headers.findIndex(h => h === step.label.toLowerCase() || h === step.key.toLowerCase());
@@ -4070,7 +3989,6 @@
                         const bayarVal = parseCleanNumber(getVal(idxBayar, 15));
                         const catatanVal = String(getVal(idxCatatan, 16)).trim() || '–';
 
-                        // Cek apakah proyek sudah ada (berdasarkan PK atau Nama Pekerjaan) jika mode merge
                         let existingProj = null;
                         if (importMode === 'merge') {
                             existingProj = PROJECTS_DB.find(p =>
@@ -4176,7 +4094,6 @@
                         PROJECTS_DB.push(...newProjectsList);
                     }
 
-                    // Buat kanal chat untuk proyek baru
                     newProjectsList.forEach(np => {
                         if (!CHAT_CHANNELS.some(c => c.id === 'ch-' + np.id)) {
                             CHAT_CHANNELS.push({ id: 'ch-' + np.id, name: np.pekerjaan, isProject: true });
@@ -4198,7 +4115,7 @@
             event.target.value = '';
         }
 
-        // ==================== MODUL BARU: DATABASE PK ====================
+        // ==================== DATABASE PK ====================
         function renderDatabasePK(container) {
             const filteredPk = DATABASE_PK.filter(row => {
                 if (!searchQuery) return true;
@@ -4227,21 +4144,18 @@
                             placeholder="Cari Nomor Kontrak, Nomor PK, Nama..."
                             class="px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs w-60 focus:outline-none focus:ring-2 focus:ring-pln-blue">
 
-                        <!-- TOMBOL IMPORT FILE EXCEL / CSV (OVERWRITE DATA LAMA) -->
                         <label class="px-4 py-2.5 rounded-xl bg-pln-blue hover:bg-pln-dark text-white text-xs font-extrabold shadow-sm cursor-pointer transition inline-flex items-center gap-2">
                             <i class="fa-solid fa-file-import text-pln-yellow"></i>
                             <span>Import Template (.xlsx / .csv)</span>
                             <input type="file" accept=".xlsx,.xls,.csv" onchange="handleImportDatabasePKFile(event)" class="hidden">
                         </label>
 
-                        <!-- TOMBOL UNDUH TEMPLATE EXCEL -->
                         <button onclick="downloadTemplateImportPK()" class="px-3.5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-xs font-bold shadow-2xs transition">
                             <i class="fa-solid fa-download text-pln-blue mr-1"></i> Unduh Template Import.xlsx
                         </button>
                     </div>
                 </div>
 
-                <!-- TABEL 15 KOLOM -->
                 <div class="bg-white border border-slate-300 shadow-xs overflow-x-auto">
                     <table class="w-full text-left border-collapse min-w-[2100px] font-sans">
                         <thead>
@@ -4424,21 +4338,11 @@
             const aoa = [
                 DB_PK_HEADERS,
                 ...sampleRows.map((r) => [
-                    r.nomorKontrak,
-                    r.nomorPk,
-                    r.nama,
-                    r.unit,
-                    r.type,
-                    r.vendor,
-                    r.status,
-                    formatTemplateDecimal(r.nilaiPk),
-                    formatTemplateDecimal(r.estimasiNilaiPkDanPajak),
-                    formatTemplateDecimal(r.nilaiEksekusi),
-                    formatTemplateDecimal(r.estimasiNilaiEksekusiDanPajak),
-                    formatTemplateDecimal(r.nilaiDisetujui),
-                    formatTemplateDecimal(r.estimasiNilaiDisetujuiDanPajak),
-                    r.tanggalMulai,
-                    r.tanggalSelesai
+                    r.nomorKontrak, r.nomorPk, r.nama, r.unit, r.type, r.vendor, r.status,
+                    formatTemplateDecimal(r.nilaiPk), formatTemplateDecimal(r.estimasiNilaiPkDanPajak),
+                    formatTemplateDecimal(r.nilaiEksekusi), formatTemplateDecimal(r.estimasiNilaiEksekusiDanPajak),
+                    formatTemplateDecimal(r.nilaiDisetujui), formatTemplateDecimal(r.estimasiNilaiDisetujuiDanPajak),
+                    r.tanggalMulai, r.tanggalSelesai
                 ])
             ];
             const ws = XLSX.utils.aoa_to_sheet(aoa);
@@ -4576,11 +4480,11 @@
                         ${WORKFLOW_STEPS.map((s, idx) => `
                             <div class="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-200">
                                 <span class="w-6 text-center font-mono font-bold text-slate-400">${idx + 1}</span>
-                                <input type="text" value="${s.label}" onchange="WORKFLOW_STEPS[${idx}].label = this.value.trim().toUpperCase(); renderCurrentModule();"
+                                <input type="text" value="${s.label}" onchange="WORKFLOW_STEPS[${idx}].label = this.value.trim().toUpperCase(); saveAppState(); renderCurrentModule();"
                                     class="flex-1 px-2.5 py-1.5 rounded-lg border border-slate-300 font-extrabold uppercase text-slate-800 bg-white">
-                                <button type="button" onclick="moveWorkflowStep(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="p-1.5 rounded hover:bg-slate-200 disabled:opacity-30" title="Geser Kiri"><i class="fa-solid fa-arrow-up"></i></button>
-                                <button type="button" onclick="moveWorkflowStep(${idx}, 1)" ${idx === WORKFLOW_STEPS.length - 1 ? 'disabled' : ''} class="p-1.5 rounded hover:bg-slate-200 disabled:opacity-30" title="Geser Kanan"><i class="fa-solid fa-arrow-down"></i></button>
-                                <button type="button" onclick="deleteWorkflowStep(${idx}); openManageWorkflowStepsModal();" class="p-1.5 rounded text-rose-600 hover:bg-rose-50" title="Hapus"><i class="fa-solid fa-trash-can"></i></button>
+                                <button type="button" onclick="moveWorkflowStep(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="p-1.5 rounded hover:bg-slate-200 disabled:opacity-30"><i class="fa-solid fa-arrow-up"></i></button>
+                                <button type="button" onclick="moveWorkflowStep(${idx}, 1)" ${idx === WORKFLOW_STEPS.length - 1 ? 'disabled' : ''} class="p-1.5 rounded hover:bg-slate-200 disabled:opacity-30"><i class="fa-solid fa-arrow-down"></i></button>
+                                <button type="button" onclick="deleteWorkflowStep(${idx}); openManageWorkflowStepsModal();" class="p-1.5 rounded text-rose-600 hover:bg-rose-50"><i class="fa-solid fa-trash-can"></i></button>
                             </div>
                         `).join('')}
                     </div>
@@ -4603,7 +4507,7 @@
             renderCurrentModule();
         }
 
-        // ==================== LOGIKA MODAL WORKFLOW, HIERARKI APPROVAL, MULTI-UPLOAD & CATATAN ====================
+        // ==================== LOGIKA MODAL WORKFLOW, HIERARKI APPROVAL & MULTI-UPLOAD ====================
         function openWorkflowModal(projectId, stepKey, focusNote = false) {
             activeWfModal = { projectId, stepKey };
             renderWorkflowModalContent();
@@ -4752,10 +4656,10 @@
                                 <div class="text-[10px] text-slate-400">${f.size || 'Lampiran'}</div>
                             </div>
                             <div class="flex items-center gap-1 shrink-0">
-                                <a href="${f.url}" download="${f.name}" class="px-2.5 py-1.5 rounded-lg bg-pln-blue hover:bg-pln-dark text-white text-[11px] font-bold inline-flex items-center gap-1 transition" title="Download Lampiran">
+                                <a href="${f.downloadUrl || f.url}" target="_blank" download="${f.name}" class="px-2.5 py-1.5 rounded-lg bg-pln-blue hover:bg-pln-dark text-white text-[11px] font-bold inline-flex items-center gap-1 transition">
                                     <i class="fa-solid fa-download"></i> Unduh
                                 </a>
-                                <button type="button" onclick="removeWorkflowFile(${idx})" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition" title="Hapus">
+                                <button type="button" onclick="removeWorkflowFile(${idx})" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition">
                                     <i class="fa-solid fa-trash-can text-xs"></i>
                                 </button>
                             </div>
@@ -4780,7 +4684,7 @@
                             </div>
                             <div class="text-slate-800 font-medium leading-relaxed">${n.text}</div>
                         </div>
-                        <button type="button" onclick="removeWorkflowNote(${nIdx})" class="text-slate-400 hover:text-rose-600 p-1" title="Hapus Catatan">
+                        <button type="button" onclick="removeWorkflowNote(${nIdx})" class="text-slate-400 hover:text-rose-600 p-1">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
@@ -4862,37 +4766,77 @@
 
             files.forEach(async (file) => {
                 const isImg = file.type.startsWith('image/');
+                let dataUrlToSave = '';
+                let sizeLabel = (file.size / 1024).toFixed(1) + ' KB';
+
                 if (isImg) {
                     const compressed = await compressImageFile(file, 1280, 0.78);
+                    dataUrlToSave = compressed.url;
+                    sizeLabel = compressed.size + ' (Compressed)';
+                } else {
+                    dataUrlToSave = await new Promise((res) => {
+                        const r = new FileReader();
+                        r.onload = (ev) => res(ev.target.result);
+                        r.readAsDataURL(file);
+                    });
+                }
+
+                if (IS_GAS_ENV) {
+                    google.script.run
+                        .withSuccessHandler((driveRes) => {
+                            if (driveRes && driveRes.success) {
+                                project.workflow[stepKey].files.push({
+                                    id: driveRes.fileId || ('file-' + Date.now()),
+                                    name: driveRes.name,
+                                    type: driveRes.type,
+                                    url: driveRes.url,
+                                    downloadUrl: driveRes.downloadUrl,
+                                    size: driveRes.size + ' (Google Drive)'
+                                });
+                            } else {
+                                project.workflow[stepKey].files.push({
+                                    id: 'file-' + Date.now() + Math.random(),
+                                    name: file.name,
+                                    type: isImg ? 'image' : 'doc',
+                                    url: dataUrlToSave,
+                                    size: sizeLabel
+                                });
+                            }
+                            saveAppState();
+                            renderWorkflowModalContent();
+                        })
+                        .withFailureHandler(() => {
+                            project.workflow[stepKey].files.push({
+                                id: 'file-' + Date.now() + Math.random(),
+                                name: file.name,
+                                type: isImg ? 'image' : 'doc',
+                                url: dataUrlToSave,
+                                size: sizeLabel
+                            });
+                            saveAppState();
+                            renderWorkflowModalContent();
+                        })
+                        .uploadWorkflowFileToDrive({
+                            name: file.name,
+                            dataUrl: dataUrlToSave,
+                            size: sizeLabel
+                        });
+                } else {
                     project.workflow[stepKey].files.push({
                         id: 'file-' + Date.now() + Math.random(),
                         name: file.name,
-                        type: 'image',
-                        url: compressed.url,
-                        size: compressed.size + ' (Compressed)'
+                        type: isImg ? 'image' : 'doc',
+                        url: dataUrlToSave,
+                        size: sizeLabel
                     });
                     saveAppState();
                     renderWorkflowModalContent();
-                } else {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        project.workflow[stepKey].files.push({
-                            id: 'file-' + Date.now() + Math.random(),
-                            name: file.name,
-                            type: 'doc',
-                            url: e.target.result,
-                            size: (file.size / 1024).toFixed(1) + ' KB'
-                        });
-                        saveAppState();
-                        renderWorkflowModalContent();
-                    };
-                    reader.readAsDataURL(file);
                 }
             });
 
             recordActivity(`Mengunggah ${files.length} berkas pada tahapan ${stepLabel}`, project.pekerjaan);
             event.target.value = '';
-            showToast(`${files.length} berkas berhasil diunggah & dikompresi otomatis!`, 'success');
+            showToast(`${files.length} berkas berhasil diunggah!`, 'success');
         }
 
         function removeWorkflowFile(fileIdx) {
@@ -4912,7 +4856,7 @@
             );
         }
 
-        // ==================== MODUL 5: GANTT CHART INTERAKTIF ====================
+        // ==================== MODUL 5: GANTT CHART ====================
         function renderGantt(container) {
             const days = Array.from({ length: 28 }, (_, i) => i + 2);
             container.innerHTML = `
@@ -4957,8 +4901,8 @@
                                                     <div class="text-[10px] text-slate-400">Mulai ${t.startDay} Nov &bull; ${t.duration} hari ${idx > 0 ? '🔗' : ''}</div>
                                                 </div>
                                                 <div class="flex items-center gap-1">
-                                                    <button onclick="shiftGanttTask(${idx}, -1)" class="w-6 h-6 rounded bg-slate-100 hover:bg-pln-blue hover:text-white text-xs font-bold" title="Majukan 1 Hari">-</button>
-                                                    <button onclick="shiftGanttTask(${idx}, 1)" class="w-6 h-6 rounded bg-slate-100 hover:bg-pln-blue hover:text-white text-xs font-bold" title="Mundurkan 1 Hari">+</button>
+                                                    <button onclick="shiftGanttTask(${idx}, -1)" class="w-6 h-6 rounded bg-slate-100 hover:bg-pln-blue hover:text-white text-xs font-bold">-</button>
+                                                    <button onclick="shiftGanttTask(${idx}, 1)" class="w-6 h-6 rounded bg-slate-100 hover:bg-pln-blue hover:text-white text-xs font-bold">+</button>
                                                 </div>
                                             </div>
                                             <div class="flex items-center gap-2 text-[10px]">
@@ -5043,7 +4987,7 @@
             showToast('Tugas WBS baru ditambahkan ke Gantt Chart!', 'success');
         }
 
-        // ==================== MODUL 6: LAPORAN HARIAN & PERSETUJUAN BERJENJANG ====================
+        // ==================== MODUL 6: LAPORAN HARIAN & PERSETUJUAN ====================
         function renderLaporan(container) {
             const filteredReports = REPORTS_DB.filter(r => reportFilter === 'ALL' || r.status === reportFilter);
 
@@ -5195,7 +5139,7 @@
             showToast('Laporan harian terkirim ke Supervisor!', 'success');
         }
 
-        // ==================== MODUL 7: CHATBOX REAL-TIME DENGAN @MENTION PINTAR ====================
+        // ==================== MODUL 7: CHATBOX ====================
         function renderChatbox(container) {
             const msgs = CHAT_MESSAGES[ACTIVE_CHANNEL] || [];
             const activeChObj = CHAT_CHANNELS.find(c => c.id === ACTIVE_CHANNEL) || CHAT_CHANNELS[0];
@@ -5208,7 +5152,6 @@
                 </div>
 
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-xs grid grid-cols-1 md:grid-cols-12 min-h-[520px] overflow-hidden">
-                    <!-- Sidebar Kanal -->
                     <div class="md:col-span-4 lg:col-span-3 border-r border-slate-200 bg-slate-50 p-3">
                         <div class="text-[11px] font-extrabold text-slate-400 uppercase px-2 mb-2">Ruang Chat</div>
                         <div class="space-y-1">
@@ -5224,7 +5167,6 @@
                         </div>
                     </div>
 
-                    <!-- Area Pesan -->
                     <div class="md:col-span-8 lg:col-span-9 flex flex-col justify-between">
                         <div class="px-5 py-3.5 border-b border-slate-200 font-bold text-sm text-pln-blue bg-white flex items-center justify-between">
                             <span>${activeChObj.name}</span>
@@ -5371,12 +5313,10 @@
                                         </td>
                                         <td class="py-3.5 px-4 text-slate-700">
                                             <input type="text" list="warehouseList" value="${a.warehouse}" onchange="updateAssetWarehouse(${origIdx}, this.value)"
-                                                placeholder="Ketik atau pilih gudang..."
                                                 class="w-full min-w-[200px] px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-pln-blue focus:border-pln-blue bg-white text-xs font-semibold text-slate-700 focus:outline-none">
                                         </td>
                                         <td class="py-3.5 px-4 text-slate-700">
                                             <input type="text" value="${a.acquisitionDate || '–'}" placeholder="DD/MM/YYYY" onchange="updateAssetAcquisitionDate(${origIdx}, this.value)"
-                                                title="Klik untuk edit Tanggal Perolehan"
                                                 class="w-32 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-pln-blue focus:border-pln-blue bg-white text-xs font-mono font-semibold text-slate-700 focus:outline-none">
                                         </td>
                                         <td class="py-3.5 px-4">
@@ -5390,12 +5330,12 @@
                                         <td class="py-3.5 px-4 text-center whitespace-nowrap">
                                             <div class="inline-flex items-center justify-center gap-1">
                                                 ${canEditTechnicalOperational() ? `
-                                                    <button type="button" onclick="openEditAssetModal(${origIdx})" class="w-7 h-7 rounded-lg bg-pln-light hover:bg-pln-blue text-pln-blue hover:text-white inline-flex items-center justify-center transition" title="Edit Detail Aset">
+                                                    <button type="button" onclick="openEditAssetModal(${origIdx})" class="w-7 h-7 rounded-lg bg-pln-light hover:bg-pln-blue text-pln-blue hover:text-white inline-flex items-center justify-center transition">
                                                         <i class="fa-solid fa-pen-to-square text-xs"></i>
                                                     </button>
                                                 ` : ''}
                                                 ${canManageCoreData() ? `
-                                                    <button type="button" onclick="deleteAsset(${origIdx})" class="w-7 h-7 rounded-lg bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white inline-flex items-center justify-center transition" title="Hapus Aset">
+                                                    <button type="button" onclick="deleteAsset(${origIdx})" class="w-7 h-7 rounded-lg bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white inline-flex items-center justify-center transition">
                                                         <i class="fa-solid fa-trash-can text-xs"></i>
                                                     </button>
                                                 ` : ''}
@@ -5473,7 +5413,7 @@
                         </div>
                         <div>
                             <label class="font-bold text-slate-700 block mb-1">Tanggal Perolehan</label>
-                            <input type="text" id="eaDate" required value="${a.acquisitionDate || '16/11/2026'}" placeholder="DD/MM/YYYY" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono">
+                            <input type="text" id="eaDate" required value="${a.acquisitionDate || '16/11/2026'}" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
@@ -5544,7 +5484,7 @@
                         </div>
                         <div>
                             <label class="font-bold text-slate-700 block mb-1">Tanggal Perolehan</label>
-                            <input type="text" id="asDate" required value="16/11/2026" placeholder="DD/MM/YYYY" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono">
+                            <input type="text" id="asDate" required value="16/11/2026" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
@@ -5614,14 +5554,13 @@
                     </div>
                 </div>
 
-                <!-- PANEL BACKUP & RESTORE DATABASE (SIAP HOSTING) -->
                 <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                     <div class="flex items-start sm:items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-pln-light text-pln-blue flex items-center justify-center text-lg shrink-0">
                             <i class="fa-solid fa-database"></i>
                         </div>
                         <div>
-                            <div class="font-extrabold text-slate-900">Cadangan & Pemulihan Seluruh Data ERP (Auto-Save Aktif)</div>
+                            <div class="font-extrabold text-slate-900">Cadangan & Pemulihan Seluruh Data ERP (Google Sheets Terhubung)</div>
                             <div class="text-slate-500 mt-0.5">Unduh arsip lengkap seluruh kontrak, proyek, PK, workflow, dan aset dalam format <b>.json</b> atau pulihkan kapan saja.</div>
                         </div>
                     </div>
@@ -5818,7 +5757,7 @@
             showToast('Kode Unik Pemilik berhasil diperbarui!', 'success');
         }
 
-        // ==================== MODUL 10: PROFIL PERUSAHAAN (UBAH LOGO & NAMA PERUSAHAAN) ====================
+        // ==================== MODUL 10: PROFIL PERUSAHAAN ====================
         function renderProfilPerusahaan(container) {
             const canEditProfile = canManageCoreData();
             const currentLogoPreview = COMPANY_PROFILE.logoUrl
@@ -5844,7 +5783,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <!-- Kartu Pratinjau Identitas Perusahaan -->
                     <div class="lg:col-span-4 space-y-4">
                         <div class="bg-gradient-to-br from-pln-dark via-pln-blue to-pln-cyan text-white p-6 rounded-2xl shadow-lg">
                             <div class="text-[10px] font-bold uppercase tracking-widest text-pln-yellow mb-4">Pratinjau Tampilan Header</div>
@@ -5882,7 +5820,6 @@
                             </div>
                         </div>
 
-                        <!-- Panel Upload Foto Logo Perusahaan -->
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3 text-xs">
                             <h3 class="font-extrabold text-slate-900 text-sm">Logo Perusahaan</h3>
                             <p class="text-slate-500">Unggah gambar logo resmi PT (PNG/JPG) atau pilih ikon di bawah.</p>
@@ -5917,23 +5854,20 @@
                         </div>
                     </div>
 
-                    <!-- Form Edit Identitas Perusahaan -->
                     <div class="lg:col-span-8 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
                         <h3 class="font-extrabold text-slate-900 text-base mb-1">Data & Identitas Perusahaan</h3>
-                        <p class="text-xs text-slate-500 mb-5">Perubahan nama dan logo akan langsung diperbarui pada pojok kanan atas, sidebar kiri, dan laporan.</p>
+                        <p class="text-xs text-slate-500 mb-5">Perubahan nama dan logo akan langsung diperbarui pada pojok kanan atas, sidebar kiri, dan Google Sheets.</p>
 
                         <form onsubmit="submitUpdateCompanyProfile(event)" class="space-y-4 text-xs">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label class="font-bold text-slate-700 block mb-1">Nama Perusahaan (Tampil di Header & Sidebar)</label>
                                     <input type="text" id="cpFormName" ${canEditProfile ? 'required' : 'readonly'} value="${COMPANY_PROFILE.name}"
-                                        placeholder="PT Belvinda Abadi Galaksindo"
                                         class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-bold text-slate-900 focus:ring-2 focus:ring-pln-blue focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="font-bold text-slate-700 block mb-1">Subjudul / Bidang Usaha</label>
                                     <input type="text" id="cpFormSubtitle" ${canEditProfile ? 'required' : 'readonly'} value="${COMPANY_PROFILE.subtitle}"
-                                        placeholder="Electrical Contractor"
                                         class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold text-pln-blue focus:ring-2 focus:ring-pln-blue focus:outline-none">
                                 </div>
                             </div>
@@ -6033,8 +5967,7 @@
             showToast('Ikon logo perusahaan diperbarui!', 'success');
         }
 
-        // ==================== INISIALISASI APLIKASI (SIAP HOSTING) ====================
-        // Ubah PRODUCTION_REQUIRE_LOGIN menjadi true saat diunggah ke hosting publik agar wajib melewati layar Login
+        // ==================== INISIALISASI APLIKASI & SINKRONISASI GOOGLE SHEETS ====================
         const PRODUCTION_REQUIRE_LOGIN = false;
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -6042,6 +5975,35 @@
                 enterApp();
             } else {
                 syncUserUI();
+            }
+
+            // Jika berjalan di dalam Google Apps Script, otomatis muat state dari Google Sheets
+            if (IS_GAS_ENV) {
+                const badge = document.getElementById('autoSaveBadge');
+                if (badge) badge.innerHTML = `<i class="fa-solid fa-rotate fa-spin text-[9px]"></i> Memuat Google Sheets...`;
+                google.script.run
+                    .withSuccessHandler((rawJson) => {
+                        if (rawJson) {
+                            try {
+                                const parsed = typeof rawJson === 'string' ? JSON.parse(rawJson) : rawJson;
+                                applyParsedStateObject(parsed);
+                                localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+                                syncAllProjectsWithDatabasePK();
+                                const updatedUser = USERS_DB.find(u => u.id === currentUser.id) || USERS_DB[0];
+                                if (updatedUser) currentUser = updatedUser;
+                                syncUserUI();
+                                updateNavBadges();
+                                renderCurrentModule();
+                                if (badge) badge.innerHTML = `<i class="fa-solid fa-cloud-check text-[9px]"></i> Terhubung Google Sheets`;
+                            } catch (e) {
+                                console.error('Parse error state GAS:', e);
+                            }
+                        }
+                    })
+                    .withFailureHandler((err) => {
+                        console.warn('Menggunakan cache lokal (Sheets belum diinisialisasi):', err);
+                    })
+                    .getAppStateFromServer();
             }
         });
     </script>
